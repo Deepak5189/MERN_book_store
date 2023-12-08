@@ -5,17 +5,51 @@ const bookSchema=mongoose.Schema(
       type: String,
       required: true,
     },
-    author:{
-      type:String,
-      required:true,
+    author: {
+      type: String,
+      required: true,
     },
-    publishYear:{
+    genre: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    coverImage: {
+      type: String, // URL or file path for the book cover image
+      required: true,
+    },
+    price: {
       type: Number,
-      required:true,
+      required: true,
     },
-  },
-  {
-    timestamps:true,
+    stockQuantity: {
+      type: Number,
+      required: true,
+    },
+    publicationDate: {
+      type: Date,
+      required: true,
+    },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+    ratings: [
+      {
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        rating: {
+          type: Number,
+          required: true,
+        },
+        review: String,
+      },
+    ],
   }
 )
 

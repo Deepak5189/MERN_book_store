@@ -1,41 +1,39 @@
 import express from "express";
 import {PORT, mongoDBURL} from './config.js'
 import mongoose from "mongoose";
-import {Book} from './models/bookModel.js'
+import cors from 'cors';
+import booksRouter from './routes/booksRouter.js'
+import userRoutes from './routes/userRoutes.js'
+
 
 const app=express();
 app.use(express.json());
 
-app.post('/book',async (request, response)=>{
-  try{
-    if(
-      !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
-    ){
-      return response.status(400).send({
-        message: 'please send all required fields: title, author, publishYear',
-      });
-    }
-    const newBook={
-      title:request.body.title,
-      author:request.body.author,
-      publishYear:request.body.publishYear,
-    };
-    const book=await Book.create(newBook);
-    return response.status(201).send(book);
 
-  }catch(error){
-    console.log(error.message);
-    return response.status(500).send({message:error.message})
-  }
-})
+// App.push method//
 
-app.get('/',(request, response)=>{
-  console.log(request);
-  return response.status(234).send("Welcome to first MERN project")
-});
+// middleware to handle CORS policy
 
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'PUT', 'DELETE'],
+    allowedHeaders:['content-type'],
+  })
+  );
+  
+  // post request
+  
+  
+  
+  app.get('/',(request, response)=>{
+    console.log(request);
+    return response.status(234).send("Welcome to first MERN project")
+  });
+  
+  
+  app.use('/book', booksRouter);
+  app.use('/user', userRoutes);
 
 mongoose.connect(mongoDBURL)
 .then(()=>{

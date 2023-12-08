@@ -1,7 +1,1 @@
-# .gitignore
-
-# Ignore node_modules in the root of the project
-node_modules/
-
-# Ignore node_modules in subdirectories
-**/node_modules/
+/node_modules/

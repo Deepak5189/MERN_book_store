@@ -53,24 +53,24 @@ const Authentication = () => {
           <form className="flex flex-col gap-3 mt-5 items-center" onSubmit={handleSubmit}>
             <span>
               <h3 className="text-md">Email</h3>
-              <input type="email" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Email...."/>
+              <input required type="email" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Email...."/>
             </span>
             <span>
               <h3 className="text-md">Username</h3>
-              <input type="text" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter a username...."/>
+              <input required type="text" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter a username...."/>
             </span>
             {/* <span className="flex"> */}
               <span>
                 <h3 className="text-md">Password</h3>
-                <input type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter a Password...."/>
+                <input required type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter a Password...."/>
               </span>
               <span>
                 <h3 className="text-md">Confirm Password</h3>
-                <input type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="confirm Password...."/>
+                <input required type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="confirm Password...."/>
               </span>
             {/* </span> */}
             <span className="flex gap-5">
-              <button className="px-5  py-2 bg-blue-300 rounded-2xl outline-gray-700 font-semibold hover:text-white hover:bg-black outline outline-2">Login</button>
+              <button className="px-5  py-2 bg-blue-300 rounded-2xl outline-gray-700 font-semibold hover:text-white hover:bg-black outline outline-2">Register</button>
               <button className="px-5  py-2 bg-black text-white rounded-2xl outline outline-black font-semibold hover:text-black hover:bg-blue-300 hover:outline-gray-700 hover:outline-2">Google Login</button>
             </span>
             <span className="flex gap-2">
@@ -84,11 +84,11 @@ const Authentication = () => {
         <form className="flex flex-col gap-3 mt-5 items-center" onSubmit={handleSubmit}>
           <span>
             <h3 className="text-md">Email</h3>
-            <input type="email" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Email...."/>
+            <input required type="email" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Email...."/>
           </span>
           <span>
             <h3 className="text-md">Password</h3>
-            <input type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Password...."/>
+            <input required type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Password...."/>
           </span>
           <span className="flex gap-5">
             <button className="px-5  py-2 bg-blue-300 rounded-2xl outline-gray-700 font-semibold hover:text-white hover:bg-black outline outline-2">Login</button>

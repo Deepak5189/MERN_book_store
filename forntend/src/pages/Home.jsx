@@ -3,7 +3,7 @@
 import SideBar from "../components/SideBar";
 import ShowBooks from "./ShowBooks";
 
-const Home = () => {
+const Home = ({genres}) => {
   return (
     <div className=" m-10">
 
@@ -21,7 +21,7 @@ const Home = () => {
       <div className=" flex gap-5">
       {/* side Bar */}
         <div className="w-[30vw]">
-          <SideBar/>
+          <SideBar genres={genres}/>
         </div>
         <div className="">
           <ShowBooks/>

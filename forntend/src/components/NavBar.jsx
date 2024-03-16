@@ -4,7 +4,7 @@ import { Link} from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";
 
-const NavBar = () => {
+const NavBar = ({genres}) => {
   const[search, setSearch]=useState("");
   const user=false;
 
@@ -42,7 +42,7 @@ const NavBar = () => {
               <Link to={`books/searchresults/${search}`}>Search</Link>
             </button>
           </span>
-          <div className="relative cursor-pointer"><Categories/></div>
+          <div className="relative cursor-pointer"><Categories genres={genres}/></div>
           <Link to='blogs' >Blogs</Link>
           <Link to='about'>About Us</Link>
           <Link to="contact">Contact Us</Link>

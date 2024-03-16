@@ -16,11 +16,110 @@ import ReadBook from './pages/ReadBook'
 import Authentication from './pages/Authentication'
 
 const App = () => {
+  
+  const genres=[
+    {
+      category:"fiction",
+      subCategory:[
+        "Mystery",
+        "Romance",
+        "Sci-fi",
+        'Fantasy',
+        'Thriller',
+        'Horror',
+        'Adventure',
+      ]
+    },
+    {
+      category:"Non-Fiction",
+      subCategory:[
+        'Biography/Autobiography',
+        'Self-Help',
+        'True Crime',
+        'History',
+        'Science',
+        'Travel',
+        'Health and Wellness',
+        'Cooking',
+        'Essays',
+      ]
+    },
+    {
+      category:"children",
+      subCategory:[
+        "Picture Books",
+        'Young Adult (YA)',
+        'Middle-Grade',
+        "Children's Fantasy",
+        'Educational',
+        'Bedtime Stories',
+      ]
+    },
+    {
+      category:"Mystry",
+      subCategory:[
+        'Detective',
+        'Cozy Mystery',
+        'Police Procedural',
+        'Legal Thriller',
+        'Espionage',
+        'Noir',
+        'True Crime',
+      ]
+    },
+    {
+      category:"Romance",
+      subCategory:[
+        'Contemporary Romance',
+        'Historical Romance',
+        'Paranormal Romance',
+        'Regency Romance',
+        'Romantic Suspense',
+        'Erotica',
+        'LGBTQ+ Romance',
+      ]
+    },
+    {
+      category:"self-help",
+      subCategory:[
+        'Motivation',
+        'Leadership',
+        'Relationships',
+        'Time Management',
+        'Mindfulness',
+        'Positive Psychology',
+        'Financial Success',
+      ]
+    },
+    {
+      category:"Biography",
+      subCategory:[
+        'Celebrity Biographies',
+        'Political Memoirs',
+        'Travel Memoirs',
+        'Inspirational Memoirs',
+        'Sports Biographies',
+        'Musician Autobiographies',
+      ]
+    },
+    {
+      category:"Foods",
+      subCategory:[
+        'Baking',
+        'Cooking Techniques',
+        'International Cuisine',
+        'Vegetarian and Vegan',
+        'Healthy Eating',
+        'Food History',
+      ]
+    },
+  ];
+
   return (
-    <>
-      <NavBar/>
+    <div className='bg-gray-100'>
+      <NavBar genres={genres}/>
       <Routes>
-        <Route path='/' element={<Home />}/>
+        <Route path='/' element={<Home genres={genres}/>}/>
         <Route path='/login' element={<Authentication/>}/>
         <Route path='/books' element={<ShowBooks/>}/>
         <Route path='/books/bookdetails/:id/readbook' element={<ReadBook/>}/>
@@ -34,7 +133,7 @@ const App = () => {
         <Route path='/books/genre/:genre' element={<Genre/>}/>
         <Route path='/books/searchresults/:author' element={<SearchResults/>}/>
       </Routes>
-    </>
+    </div>
     
   )
 }

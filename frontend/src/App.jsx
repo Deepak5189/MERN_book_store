@@ -116,7 +116,7 @@ const App = () => {
   ];
 
   return (
-    <div className='bg-gray-100'>
+    <div className='bg-gray-100 h-screen w-screen py-20'>
       <NavBar genres={genres}/>
       <Routes>
         <Route path='/' element={<Home genres={genres}/>}/>

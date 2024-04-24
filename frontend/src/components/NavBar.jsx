@@ -19,13 +19,16 @@ const NavBar = ({genres}) => {
 
 
   return (
-    <div className="p-5 w-[100vw] flex justify-between bg-gray-200  items-center">
+    <nav className="w-full fixed top-0 backdrop-blur-lg z-10">
+      
+    <div className="flex justify-between items-center px-5 py-3 shadow-md">
+      
 
       {/* Website Logo here */}
       <div className="">
         <Link to='/'>
-          <div className="p-3 flex items-center justify-center text-center rounded-full bg-blue-300">
-            <h1 className="text-xl font-bold">B</h1>
+          <div className="flex items-center border-2 p-2 border-gray-500 rounded-full">
+            <h1 className="text-2xl font-bold">B</h1>
             <h2 className="text-xl font-thin">M</h2>
           </div>
         </Link>
@@ -36,12 +39,12 @@ const NavBar = ({genres}) => {
 
         {/* NavLinks here */}
         <nav className="flex justify-evenly items-center gap-4">
-          <span className="border-solid border-[1px] rounded-full border-gray-500 ">
-            <input type="search" className="focus:outline-none ml-2 bg-transparent" placeholder="Search by name..." value={search} onChange={(e)=>{setSearch(e.target.value)}}/>
-            <button className="p-2 ml-3 bg-blue-300 rounded-2xl outline-blue-300 w-16 font-semibold   outline outline-2 ">
+          <span className="relative w-[400px] rounded-full border-gray-300 shadow-lg border-[1px]">
+            <input type="search" className="focus:outline-none px-4 py-2 bg-transparent w-40%" placeholder="Search by name..." value={search} onChange={(e)=>{setSearch(e.target.value)}}/>
+          </span>
+            <button className="px-4 py-2 rounded-xl font-semibold shadow-lg border-[1px] border-gray-300 transform transition duration-300 hover:scale-105">
               <Link to={`books/searchresults/${search}`}>Search</Link>
             </button>
-          </span>
           <div className="relative cursor-pointer"><Categories genres={genres}/></div>
           <Link to='blogs' >Blogs</Link>
           <Link to='about'>About Us</Link>
@@ -58,17 +61,19 @@ const NavBar = ({genres}) => {
             <div className="">
               <Link to="cart">Cart</Link>
             </div>
-          <div className="p-3 flex items-center justify-center text-center rounded-full bg-blue-300">
-            <img src="/" alt="user" className="object-cover"/>
-          </div>
+            <div className="p-3 flex items-center justify-center text-center rounded-full bg-blue-300">
+              <img src="/" alt="user" className="object-cover"/>
+            </div>
           </div>
           :
           <Link to='/login'>
-            <button className="p-2 ml-3 bg-blue-300 rounded-2xl outline-blue-300 w-16 font-semibold hover:text-white hover:bg-black outline outline-2 hover:outline-black">LogIn</button>
+            <button className="ml-3 px-4 py-2 rounded-xl font-semibold shadow-lg border-[1px] border-gray-300">LogIn</button>
           </Link>
         }
       </div>
     </div>
+  
+    </nav>
   )
 }
 

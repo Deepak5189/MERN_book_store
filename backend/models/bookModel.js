@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose =require('mongoose');
 const bookSchema=mongoose.Schema(
   {
     title: {
@@ -53,4 +53,6 @@ const bookSchema=mongoose.Schema(
   }
 )
 
-export const Book=mongoose.model('book', bookSchema);
+const Book=mongoose.model('book', bookSchema);
+
+module.exports={Book}

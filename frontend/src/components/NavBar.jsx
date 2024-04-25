@@ -1,12 +1,33 @@
 // import React from 'react'
 
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import Categories from "./Categories";
 import { useState } from "react";
+import { useAuth } from "../context/authContext";
 
 const NavBar = ({genres}) => {
   const[search, setSearch]=useState("");
-  const user=false;
+  const [showUserOption, setShowUserOption]=useState('false');
+  const token=localStorage.getItem("token");
+  const {logout}=useAuth();
+  const navigate=useNavigate();
+  let isUserLoggedIn;
+  if(!token){
+    isUserLoggedIn=false;
+  }
+  else{
+    isUserLoggedIn=true;
+  }
+
+  const handleAuth=()=>{
+    logout();
+    setShowUserOption(false);
+    navigate('/');
+    alert("user logged out successfully!");
+  }
+  const handleShowUserOption=()=>{
+    setShowUserOption(!showUserOption);
+  }
 
   // const handleClick=(e)=>{
   //   e.preventDefault();
@@ -55,18 +76,25 @@ const NavBar = ({genres}) => {
 
         {/* User section */}
         {
-          user?
-          <div className="flex gap-2 justify-evenly items-center">
-            <div className=" ml-2">WishList</div>
-            <div className="">
-              <Link to="cart">Cart</Link>
-            </div>
-            <div className="p-3 flex items-center justify-center text-center rounded-full bg-blue-300">
-              <img src="/" alt="user" className="object-cover"/>
+          isUserLoggedIn?
+          <div className="flex gap-2 justify-evenly items-center px-5">
+            <div className="relative w-12 h-12 flex justify-center items-center rounded-full border-2 border-gray-200 p-2 cursor-pointer" onClick={handleShowUserOption}>
+              <img src="/vite.svg" alt="user" className="object-cover"/>
+                <div className={`${!showUserOption?'absolute':'hidden'} transition-opacity top-12 w-[100px] flex flex-col items-center border-2 rounded-lg shadow-lg backdrop-blur-lg`}>
+                  <div className=" p-2">WishList</div>
+                  <hr className='py-[0.25px] bg-gray-200 w-full'/>
+                  <div className="p-2">
+                    <Link to="cart">Cart</Link>
+                  </div>
+                  <hr className='py-[0.25px] bg-gray-200 w-full'/>
+                  <div className="p-3">
+                    <button className='' onClick={handleAuth}>Logout</button>
+                  </div>
+                </div>
             </div>
           </div>
           :
-          <Link to='/login'>
+          <Link to='/authentication'>
             <button className="ml-3 px-4 py-2 rounded-xl font-semibold shadow-lg border-[1px] border-gray-300">LogIn</button>
           </Link>
         }

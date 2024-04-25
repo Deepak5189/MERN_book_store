@@ -14,6 +14,7 @@ import SearchResults from './components/SearchResults'
 import BookDetail from './pages/BookDetail'
 import ReadBook from './pages/ReadBook'
 import Authentication from './pages/Authentication'
+import { AuthProvider } from './context/authContext'
 
 const App = () => {
   
@@ -117,10 +118,17 @@ const App = () => {
 
   return (
     <div className='bg-gray-100 h-screen w-screen py-20'>
-      <NavBar genres={genres}/>
+      {/* Conditionally render NavBar based on the route */}
+      <AuthProvider>
+        <NavBar genres={genres} />
+      </AuthProvider>
       <Routes>
         <Route path='/' element={<Home genres={genres}/>}/>
-        <Route path='/login' element={<Authentication/>}/>
+        <Route path='/authentication' element={
+          <AuthProvider>
+            <Authentication/>
+          </AuthProvider>
+        }/>
         <Route path='/books' element={<ShowBooks/>}/>
         <Route path='/books/bookdetails/:id/readbook' element={<ReadBook/>}/>
         <Route path='/books/create' element={<CreateBook/>}/>

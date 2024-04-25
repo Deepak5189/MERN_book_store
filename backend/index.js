@@ -1,9 +1,10 @@
-import express from "express";
-import {PORT, mongoDBURL} from './config.js'
-import mongoose from "mongoose";
-import cors from 'cors';
-import booksRouter from './routes/booksRouter.js'
-import userRoutes from './routes/userRoutes.js'
+const express = require("express");
+const { PORT, mongoDBURL } = require('./config.js');
+const mongoose = require("mongoose");
+const cors = require('cors');
+const booksRouter = require('./routes/booksRouter.js');
+const userRoutes = require('./routes/userRoutes.js');
+
 
 
 const app=express();
@@ -28,12 +29,12 @@ app.use(
   
   app.get('/',(request, response)=>{
     console.log(request);
-    return response.status(234).send("Welcome to first MERN project")
+    return response.status(234).send("Welcome to MERN project")
   });
   
   
-  app.use('/book', booksRouter);
-  app.use('/user', userRoutes);
+  // app.use('/book', booksRouter);
+  app.use('/auth', userRoutes);
 
 mongoose.connect(mongoDBURL)
 .then(()=>{

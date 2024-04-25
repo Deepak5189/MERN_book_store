@@ -1,106 +1,202 @@
 // import React from 'react'
 
 import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 const Authentication = () => {
-  const [newUser, setNewUser] = useState(false);
-  const[loginDetail, setLoginDetail] = useState({});
-  const[registerDetail, setRegisterDetail] = useState({});
+  const navigate=useNavigate();
+  // const [loginFormData, setLoginFormData]=useState({
+  //   email:'',
+  //   password:'',
+  // })
+  const [formData, setFormData]=useState({
+    username:'',
+    gmail:'',
+    password:'',
+    confirmPassword:''
+  })
 
-  const handleNewUser=(e)=>{
-    e.preventDefault()
-    // const bool = newUser
+  const{login, register}=useAuth()
+
+  const{username, gmail, password, confirmPassword}=formData;
+
+  const handleChange=(event)=>{
+    setFormData({...formData, [event.target.name]: event.target.value})
+  }
+
+  const [newUser, setNewUser]=useState(false);
+
+  const handleUser=()=>{
     setNewUser(!newUser)
   }
 
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    if(newUser){
-      const email=e.target[0].value;
-      const username=e.target[1].value;
-      const password=e.target[2].value;
-      // if()
-      setRegisterDetail({email, username, password});
-      console.log(registerDetail);
+  // const {email, password}=loginFormData;
+
+  // const handleLoginChange=(event)=>{
+  //   setLoginFormData({...loginFormData, [event.target.name]:event.target.value});
+  // }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const {gmail, password}=formData;
+    console.log(formData)
+    const userData={gmail, password};
+
+    try {
+      const response = await login(userData);
+      // const token=localStorage.getItem('token')
+      alert(`user ${response.user.username} has logged in`);
+        navigate('/');
+
+    } catch (error) {
+      console.error(error);
     }
-    else {
-      const email=e.target[0].value;
-      // const username=e.target[1].value;
-      const password=e.target[1].value;
-      // if()
-      setLoginDetail({email, password});
-      console.log(loginDetail);
-    }
-    
-  }
+  };
+
+
+  const handleSubmitNewUser = async (event) => {
+    event.preventDefault();
+
+    // try {
+    //   // Replace with your actual login logic (e.g., API call)
+    //   const response = await fetch('/api/login', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(formData),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error('Login failed');
+    //   }
+
+    //   const data = await response.json();
+    //   setAuthContext({ isAuthenticated: true, token: data.token }); // Update AuthContext
+    //   navigate('/'); // Redirect to home page on successful login
+    // } catch (error) {
+    //   console.error(error);
+    //   Display error message to user
+    // }
+  };  
+
 
   return (
-    <div className="p-2 mt-5 flex justify-center items-center bg-gray-300/70 rounded-xl w-[60%] m-auto">
-      <div className="flex flex-col gap-10 p-10 border-r-2 border-gray-500">
-        <h1 className="text-3xl font-bold">Unlock the Magic</h1>
-        <h3 className="text-xl font-semibold text-right">of Reading with us.</h3>
-        <h3 className="font-semibold">Why should join us?.....Here is Why</h3>
-        <ul className="list-disc">
-          <li>Embark on a litrary journey!</li>
-          <li>Curated Collections for Every Book Lover.</li>
-          <li>More than just books - It&apos;s a Reading Experience.</li>
-          <li>Fuel your Mind with the power of Books.</li>
-          <li>Curious Minds Welcome.</li>
-        </ul>
+    <main className="p-10 m-auto flex justify-center items-center">
+      <img src="/landing_page.jpeg" alt="" className="h-screen w-screen fixed bottom-0 z-[0]"/>
+      <div className="bg-gray-200 z-[1] p-10 rounded-lg shadow-xl box-border min-w-[350px]">
+        <div className="flex justify-center items-center rounded-full border-[2px] m-auto border-gray-300 p-2 w-20 h-20">
+          <span className="text-5xl font-bold">B</span>
+          <span className="text-4xl font-thin">M</span>
+        </div>
+        {!newUser?<form onSubmit={handleSubmit} className="w-full flex flex-col gap-5 mt-5">
+          <div className="text-xl uppercase font-semibold text-center">User Login</div>
+          <div className="flex flex-col w-full">
+          </div>
+          <div className="flex flex-col w-full">
+            {/* <label htmlFor="email"className="text-lg ">Email</label> */}
+            <input
+              type="email"
+              placeholder="Email"
+              id="gmail"
+              name="gmail"
+              className="block p-2 rounded-lg shadow-lg focus:scale-105 focus:outline-none transition-transform"
+              value={gmail}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="">
+            {/* <label htmlFor="password">Password</label> */}
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="block p-2 rounded-lg shadow-lg w-full focus:scale-105 focus:outline-none transition-transform"
+              placeholder="Password"
+              value={password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <button type="submit" className="box-border px-4 py-2 shadow-lg rounded-lg bg-gray-800 text-white hover:scale-105 transition-transform">Login</button>
+            <div className="form-group">
+              <Link to="/forgot-password" className="text-blue-500 hover:underline">Forgot Password?</Link>
+            </div>
+          </div>
+          <hr className="bg-gray-500 h-[1px]"/>
+          <div className="flex gap-1">
+            <span>New here?........... </span>
+            <Link to="#" className="text-blue-500 hover:underline" onClick={handleUser}>Create a new account</Link>
+          </div>
+        </form>:
+        <form onSubmit={handleSubmitNewUser} className="w-full flex flex-col gap-5 mt-5">
+        <div className="text-xl uppercase font-semibold text-center">User Register</div>
+            {/* <label htmlFor="email"className="text-lg ">Email</label> */}
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              name="username"
+              className="block p-2 rounded-lg shadow-lg focus:scale-105 focus:outline-none transition-transform"
+              value={username}
+              onChange={handleChange}
+              required
+            />
+        <div className="flex flex-col w-full">
+          {/* <label htmlFor="email"className="text-lg ">Email</label> */}
+          <input
+            type="email"
+            placeholder="Email"
+            id="gmail"
+            name="gmail"
+            className="block p-2 rounded-lg shadow-lg focus:scale-105 focus:outline-none transition-transform"
+            value={gmail}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="">
+          {/* <label htmlFor="password">Password</label> */}
+          <input
+            type="password"
+            id="password"
+            name="password"
+            className="block p-2 rounded-lg shadow-lg w-full focus:scale-105 focus:outline-none transition-transform"
+            placeholder="Password"
+            value={password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="">
+          {/* <label htmlFor="password">Password</label> */}
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            className="block p-2 rounded-lg shadow-lg w-full focus:scale-105 focus:outline-none transition-transform"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="flex justify-between items-center">
+          <button type="submit" className="box-border px-4 py-2 shadow-lg rounded-lg bg-gray-800 text-white hover:scale-105 transition-transform">Register</button>
+          {/* <div className="form-group">
+            <Link to="/forgot-password" className="text-blue-500 hover:underline">Forgot Password?</Link>
+          </div> */}
+        </div>
+        <hr className="bg-gray-500 h-[1px]"/>
+        <div className="flex gap-2">
+          <span>Already a User?........... </span>
+          <Link to="#" className="text-blue-500 hover:underline" onClick={handleUser}>Login</Link>
+        </div>
+      </form>}
       </div>
-      {newUser? <div className="bg-gray-300/70 p-10 m-5 rounded-lg flex flex-col items-center">
-          <h2 className="text-xl font-bold">Hello There.....</h2>
-          <form className="flex flex-col gap-3 mt-5 items-center" onSubmit={handleSubmit}>
-            <span>
-              <h3 className="text-md">Email</h3>
-              <input required type="email" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Email...."/>
-            </span>
-            <span>
-              <h3 className="text-md">Username</h3>
-              <input required type="text" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter a username...."/>
-            </span>
-            {/* <span className="flex"> */}
-              <span>
-                <h3 className="text-md">Password</h3>
-                <input required type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter a Password...."/>
-              </span>
-              <span>
-                <h3 className="text-md">Confirm Password</h3>
-                <input required type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="confirm Password...."/>
-              </span>
-            {/* </span> */}
-            <span className="flex gap-5">
-              <button className="px-5  py-2 bg-blue-300 rounded-2xl outline-gray-700 font-semibold hover:text-white hover:bg-black outline outline-2">Register</button>
-              <button className="px-5  py-2 bg-black text-white rounded-2xl outline outline-black font-semibold hover:text-black hover:bg-blue-300 hover:outline-gray-700 hover:outline-2">Google Login</button>
-            </span>
-            <span className="flex gap-2">
-              <p className="">Already a member?....</p>
-              <button onClick={handleNewUser} className="text-blue-700">Login now</button>
-            </span>
-          </form>
-        </div> :
-        <div className="bg-gray-300/70 p-10 m-5 rounded-lg flex flex-col items-center">
-        <h2 className="text-xl font-bold">Welcome Back.....</h2>
-        <form className="flex flex-col gap-3 mt-5 items-center" onSubmit={handleSubmit}>
-          <span>
-            <h3 className="text-md">Email</h3>
-            <input required type="email" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Email...."/>
-          </span>
-          <span>
-            <h3 className="text-md">Password</h3>
-            <input required type="password" className="bg-transparent outline outline-2 outline-gray rounded-lg my-2 text-sm p-2 text-black" placeholder="Enter Your Password...."/>
-          </span>
-          <span className="flex gap-5">
-            <button className="px-5  py-2 bg-blue-300 rounded-2xl outline-gray-700 font-semibold hover:text-white hover:bg-black outline outline-2">Login</button>
-            <button className="px-5  py-2 bg-black text-white rounded-2xl outline outline-black font-semibold hover:text-black hover:bg-blue-300 hover:outline-gray-700 hover:outline-2">Google Login</button>
-          </span>
-          <span className="flex gap-2">
-            <p className="">New Here?....</p>
-            <button onClick={handleNewUser} className="text-blue-700">Create new account</button>
-          </span>
-        </form>
-      </div>}
-    </div>
+    </main>
   )
 }
 

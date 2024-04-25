@@ -1,5 +1,5 @@
-import express from "express";
-import { Book } from "../models/bookModel.js";
+const express = require("express");
+const { Book } =require("../models/bookModel.js");
 
 
 const router= express.Router();
@@ -97,4 +97,4 @@ router.put('/:id',async (request,response)=>{
 })
 
 
-export default router;
+module.export=router;

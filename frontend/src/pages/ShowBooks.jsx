@@ -15,6 +15,9 @@ const ShowBooks = () => {
         // console.log(res)
         const data=res.data.data;
         console.log(data)
+        data.sort((a,b)=>{
+          return a.publishYear-b.publishYear;
+        })
         setBooks(data)
         console.log(books)
         // const data=res.data.data;
@@ -29,7 +32,7 @@ const ShowBooks = () => {
   }
 
   return (
-    <div className="bg-white p-5 w-[95%] shadow-lg rounded-lg m-auto">
+    <div className="bg-white p-5 shadow-lg rounded-lg m-auto">
       <h1 className="text-3xl font-semibold">Books for you...</h1>
       <div className=" grid lg:grid-cols-4 gap-5 mt-5">
         {books?.map((item) => {

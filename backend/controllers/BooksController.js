@@ -1,11 +1,6 @@
-const express = require("express");
-const { Book } =require("../models/bookModel.js");
+const {Book}=require('../models/bookModel');
 
-
-const router= express.Router();
-
-
-router.post('/',async (request, response)=>{
+exports.createBook= async (req,res)=>{
   try{
     if(
       !request.body.title ||
@@ -30,13 +25,9 @@ router.post('/',async (request, response)=>{
     console.log(error.message);
     return response.status(500).send({message:error.message})
   }
-})
+}
 
-
-// Get Request 
-
-
-router.get('/',async (request, response)=>{
+exports.getAllBooks= async (request, response)=>{
   try{
     const books=await Book.find({});
     return response.status(200).send({
@@ -46,15 +37,9 @@ router.get('/',async (request, response)=>{
   }catch(err){
     return response.status(500).send({message: err.message});
   }
-});
+};
 
-
-
-
-// router.get for a single book//
-
-
-router.get('/:id',async (request, response)=>{
+exports.getBook= async (request, response)=>{
   const {id} = request.params;
   try{
     const book=await Book.findById(id);
@@ -62,13 +47,9 @@ router.get('/:id',async (request, response)=>{
   }catch(err){
     return response.status(500).send({message: err.message});
   }
-});
+}
 
-
-
-// router.put to update a book//
-
-router.put('/:id',async (request,response)=>{
+exports.updateBook= async (request, response)=>{
   try {
     if (
       !request.body.title ||
@@ -94,7 +75,4 @@ router.put('/:id',async (request,response)=>{
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
-})
-
-
-module.export=router;
+}

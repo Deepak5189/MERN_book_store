@@ -1,14 +1,16 @@
 // import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 const ShowBooks = () => {
   const [books, setBooks] = useState([]);
-
+  const navigate=useNavigate();
+  
   useEffect(() => {
     axios
-      .get("http://localhost:5555/book")
+      .get("http://localhost:5555/books")
       .then((res) => {
         // console.log(res)
         const data=res.data.data;
@@ -20,15 +22,19 @@ const ShowBooks = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  },[]);
+
+  const handleBookNav=()=>{
+    navigate('/books');
+  }
 
   return (
-    <div className="">
+    <div className="bg-white p-5 w-[95%] shadow-lg rounded-lg m-auto">
       <h1 className="text-3xl font-semibold">Books for you...</h1>
-      <div className=" inline-flex justify-between flex-wrap gap-7 m-auto">
+      <div className=" grid lg:grid-cols-4 gap-5 mt-5">
         {books?.map((item) => {
           return (
-            <div className="p-2 mt-5 flex flex-col justify-evenly w-[250px] h-[450px] bg-gray-300/70 border-solid border-gray-300 rounded-lg" key={item._id}>
+            <div className="px-5 py-2 mt-5 m-auto flex flex-col shadow-lg border-2 justify-evenly w-[250px] h-[450px] bg-gray-200 border-solid border-gray-300 rounded-lg" key={item._id}>
               <div className="rounded-lg overflow-hidden">
                 <img src={item.cover} alt={item.title} className="object-fill w-[300px] h-[300px]"/>
               </div>
@@ -37,15 +43,15 @@ const ShowBooks = () => {
               <div className="flex justify-between items-center">
                 <p className="text-md font-medium">{item.publishYear}</p>
                 <Link to={`/books/bookdetails/${item._id}`}>
-                  <button className="p-2 bg-blue-300 rounded-2xl outline-blue-300 font-semibold hover:text-white hover:bg-black outline outline-2 hover:outline-black">Download</button>
+                  <button className="shadow-lg px-3 py-2 rounded-lg border-2 bg-white font-semibold hover:scale-105 transition-transform">Download</button>
                 </Link>
                 
               </div>
             </div>
           );
         })}
-        <div className="flex-1 flex my-10 rounded-xl  bg-gray-300/70 justify-center">
-          <button className="p-2 my-auto bg-blue-300 rounded-2xl outline-blue-300 font-semibold hover:text-white hover:bg-black outline outline-2 hover:outline-black">Check Out our all collections.....</button>
+        <div className=" mt-5 flex flex-col shadow-lg border-2 justify-evenly w-[250px] h-[450px] bg-gray-200 border-solid border-gray-300 rounded-lg cursor-pointer m-auto" onClick={handleBookNav}>
+          <button className="">Check Out our all collections.....</button>
         </div>
       </div>
     </div>

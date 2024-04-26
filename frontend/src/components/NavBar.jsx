@@ -40,7 +40,7 @@ const NavBar = ({genres}) => {
 
 
   return (
-    <nav className="w-full fixed top-0 backdrop-blur-lg z-10">
+    <nav className="w-full fixed top-0 bg-white/75 backdrop-blur-lg z-10">
       
     <div className="flex justify-between items-center px-5 py-3 shadow-md">
       

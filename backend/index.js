@@ -2,12 +2,17 @@ const express = require("express");
 const { PORT, mongoDBURL } = require('./config.js');
 const mongoose = require("mongoose");
 const cors = require('cors');
-const booksRouter = require('./routes/booksRouter.js');
+const booksRoutes = require('./routes/booksRoutes.js');
 const userRoutes = require('./routes/userRoutes.js');
-
-
-
 const app=express();
+
+// CORS middleware
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'PUT', 'DELETE'],
+  allowedHeaders:['content-type'],
+}));
+
 app.use(express.json());
 
 
@@ -15,13 +20,16 @@ app.use(express.json());
 
 // middleware to handle CORS policy
 
-app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'PUT', 'DELETE'],
-    allowedHeaders:['content-type'],
-  })
-  );
+
+
+
+// app.use(
+//   cors({
+//     origin: 'http://localhost:3000',
+//     methods: ['GET', 'PUT', 'DELETE'],
+//     allowedHeaders:['content-type'],
+//   })
+//   );
   
   // post request
   
@@ -35,6 +43,8 @@ app.use(
   
   // app.use('/book', booksRouter);
   app.use('/auth', userRoutes);
+
+  app.use('/books', booksRoutes)
 
 mongoose.connect(mongoDBURL)
 .then(()=>{

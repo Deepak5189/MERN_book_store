@@ -117,8 +117,7 @@ const App = () => {
   ];
 
   return (
-    <div className='bg-gray-100 h-screen w-screen py-20'>
-      {/* Conditionally render NavBar based on the route */}
+    <div className='bg-gray-300 w-screen pt-24'>
       <AuthProvider>
         <NavBar genres={genres} />
       </AuthProvider>

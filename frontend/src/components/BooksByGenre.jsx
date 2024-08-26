@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 
-const ShowBooks = () => {
+const BooksByGenre = ({genre}) => {
   const [books, setBooks] = useState([]);
   const navigate=useNavigate();
   
   useEffect(() => {
     axios
-      .get("http://localhost:5555/books")
+      .get(`http://localhost:5555/books`)
       .then((res) => {
         // console.log(res)
         const data=res.data.data;
@@ -64,4 +64,4 @@ const ShowBooks = () => {
   );
 };
 
-export default ShowBooks;
+export default BooksByGenre;

@@ -1,5 +1,5 @@
 // import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import {Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import ShowBooks from './pages/ShowBooks'
 import DeleteBook from './pages/DeleteBook'
@@ -14,7 +14,6 @@ import SearchResults from './components/SearchResults'
 import BookDetail from './pages/BookDetail'
 import ReadBook from './pages/ReadBook'
 import Authentication from './pages/Authentication'
-import { AuthProvider } from './context/authContext'
 
 const App = () => {
   
@@ -118,15 +117,11 @@ const App = () => {
 
   return (
     <div className='bg-gray-300 w-screen pt-24'>
-      <AuthProvider>
         <NavBar genres={genres} />
-      </AuthProvider>
       <Routes>
         <Route path='/' element={<Home genres={genres}/>}/>
         <Route path='/authentication' element={
-          <AuthProvider>
-            <Authentication/>
-          </AuthProvider>
+          <Authentication/>
         }/>
         <Route path='/books' element={<ShowBooks/>}/>
         <Route path='/books/bookdetails/:id/readbook' element={<ReadBook/>}/>

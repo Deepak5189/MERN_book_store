@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useContext } from "react";
 
 const AuthContext = createContext({
   isAuthenticated: false,
@@ -9,7 +9,16 @@ const AuthContext = createContext({
   setUser: () => {},
 });
 
-const AuthProvider = ({ children }) => {
+export const useAuth=()=>{
+  const context=useContext(AuthContext);
+  if(!context){
+    throw new Error('useAuth must be used withinan AuthProvider');
+  }
+
+  return context;
+};
+
+export const AuthProvider = ({ children }) => {
 
   const login = async (userData) => {
     try{
@@ -46,8 +55,3 @@ const AuthProvider = ({ children }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-export { AuthContext, AuthProvider, useAuth };

@@ -51,7 +51,7 @@ const Authentication = () => {
         navigate('/');
 
     } catch (error) {
-      console.error(error);
+      console.error(error, 'got an error due to server');
     }
   };
 
